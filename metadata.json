@@ -1,0 +1,6 @@
+{
+  "name": "Atal Production House",
+  "description": "Professional music mixing and production studio website for Atal Production House.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
