@@ -220,92 +220,97 @@ export const Header: React.FC<HeaderProps> = () => {
             </a>
           </div>
 
-          {/* Mobile Menu & Social Button */}
-          <div className="flex lg:hidden items-center gap-1 sm:gap-1.5 shrink-0">
-            {/* Quick Translation Toggle on Mobile */}
-            <button
-              onClick={() => {
-                const currentIndex = languages.findIndex((l) => l.code === language);
-                const nextLang = languages[(currentIndex + 1) % languages.length].code;
-                setLanguage(nextLang as SupportedLanguage);
-              }}
-              id="header-mobile-lang-toggle"
-              aria-label="Switch Language"
-              className="w-[35px] h-[35px] p-0.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#D4AF37]/50 text-white/80 hover:text-[#D4AF37] flex flex-col items-center justify-center cursor-pointer transition-colors shadow-sm shrink-0"
-            >
-              <span className="text-[11px] flex items-center justify-center leading-none shrink-0">{currentLangMeta.flag}</span>
-              <span className="w-[25px] text-[8px] font-bold text-[#D4AF37] leading-none tracking-tighter truncate text-center">
-                {currentLangMeta.nativeName}
-              </span>
-            </button>
-            {/* Quick Instagram on Mobile Header */}
-            <a
-              href={STUDIO_LINKS.INSTAGRAM}
-              target="_blank"
-              rel="noopener noreferrer"
-              id="header-mobile-instagram"
-              aria-label="Instagram"
-              title="Follow on Instagram"
-              className="w-[20px] h-[20px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#E1306C] hover:border-[#E1306C]/40 transition-all flex items-center justify-center shrink-0"
-            >
-              <Instagram className="w-2.5 h-2.5" />
-            </a>
-            {/* Facebook on Mobile Header */}
-            <a
-              href={STUDIO_LINKS.FACEBOOK}
-              target="_blank"
-              rel="noopener noreferrer"
-              id="header-mobile-facebook"
-              aria-label="Facebook"
-              title="Follow on Facebook"
-              className="w-[20px] h-[20px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#1877F2] hover:border-[#1877F2]/40 transition-all flex items-center justify-center shrink-0"
-            >
-              <Facebook className="w-2.5 h-2.5" />
-            </a>
-            {/* YouTube on Mobile Header */}
-            <a
-              href={STUDIO_LINKS.YOUTUBE_CHANNEL}
-              target="_blank"
-              rel="noopener noreferrer"
-              id="header-mobile-youtube"
-              aria-label="YouTube"
-              title="Subscribe on YouTube"
-              className="w-[20px] h-[20px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#FF0000] hover:border-[#FF0000]/40 transition-all flex items-center justify-center shrink-0"
-            >
-              <Youtube className="w-2.5 h-2.5" />
-            </a>
-            {/* WhatsApp Channel on Mobile Header */}
-            <a
-              href={STUDIO_LINKS.WHATSAPP_CHANNEL}
-              target="_blank"
-              rel="noopener noreferrer"
-              id="header-mobile-channel"
-              aria-label="Join WhatsApp Channel"
-              title="Join WhatsApp Channel"
-              className="w-[20px] h-[20px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#25D366] hover:border-[#25D366]/40 transition-all flex items-center justify-center shrink-0"
-            >
-              <Radio className="w-2.5 h-2.5" />
-            </a>
-            {/* WhatsApp DM Button on Mobile Header */}
-            <a
-              href={STUDIO_LINKS.WHATSAPP_DM}
-              target="_blank"
-              rel="noopener noreferrer"
-              id="header-mobile-wa-quick"
-              aria-label="WhatsApp Studio DM"
-              title="Chat on WhatsApp"
-              className="w-[20px] h-[20px] rounded-full bg-[#D4AF37] text-black hover:bg-white transition-colors font-bold text-xs shadow-md shrink-0 flex items-center justify-center"
-            >
-              <MessageCircle className="w-2.5 h-2.5 fill-current" />
-            </a>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              id="mobile-menu-toggle-btn"
-              aria-label="Toggle navigation menu"
-              className="p-1.5 sm:p-2 rounded-lg bg-neutral-900 border border-white/10 text-neutral-200 hover:text-white focus:outline-none ml-0.5 shrink-0"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+          {/* Mobile Menu & Social Button in Two Horizontal Lines */}
+          <div className="flex lg:hidden flex-col items-end gap-1 shrink-0">
+            {/* Horizontal Line 1: Translating Icon & Socials */}
+            <div className="flex items-center gap-1.5">
+              {/* English-Bengali Translating Icon Toggle */}
+              <button
+                onClick={() => {
+                  const nextLang = language === 'bn' ? 'en' : 'bn';
+                  setLanguage(nextLang as SupportedLanguage);
+                }}
+                id="header-mobile-lang-toggle"
+                aria-label="Translate English / Bengali"
+                title={`Switch Language (${language === 'bn' ? 'English' : 'বাংলা'})`}
+                className="w-[22px] h-[22px] rounded-full bg-white/5 border border-white/10 hover:border-[#D4AF37]/50 text-[#D4AF37] flex items-center justify-center cursor-pointer transition-colors shadow-sm shrink-0"
+              >
+                <Languages className="w-3 h-3" />
+              </button>
+              {/* Instagram */}
+              <a
+                href={STUDIO_LINKS.INSTAGRAM}
+                target="_blank"
+                rel="noopener noreferrer"
+                id="header-mobile-instagram"
+                aria-label="Instagram"
+                title="Follow on Instagram"
+                className="w-[22px] h-[22px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#E1306C] hover:border-[#E1306C]/40 transition-all flex items-center justify-center shrink-0"
+              >
+                <Instagram className="w-3 h-3" />
+              </a>
+              {/* Facebook */}
+              <a
+                href={STUDIO_LINKS.FACEBOOK}
+                target="_blank"
+                rel="noopener noreferrer"
+                id="header-mobile-facebook"
+                aria-label="Facebook"
+                title="Follow on Facebook"
+                className="w-[22px] h-[22px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#1877F2] hover:border-[#1877F2]/40 transition-all flex items-center justify-center shrink-0"
+              >
+                <Facebook className="w-3 h-3" />
+              </a>
+              {/* YouTube */}
+              <a
+                href={STUDIO_LINKS.YOUTUBE_CHANNEL}
+                target="_blank"
+                rel="noopener noreferrer"
+                id="header-mobile-youtube"
+                aria-label="YouTube"
+                title="Subscribe on YouTube"
+                className="w-[22px] h-[22px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#FF0000] hover:border-[#FF0000]/40 transition-all flex items-center justify-center shrink-0"
+              >
+                <Youtube className="w-3 h-3" />
+              </a>
+            </div>
+
+            {/* Horizontal Line 2: Channels, Direct WhatsApp & Menu */}
+            <div className="flex items-center gap-1.5">
+              {/* WhatsApp Channel */}
+              <a
+                href={STUDIO_LINKS.WHATSAPP_CHANNEL}
+                target="_blank"
+                rel="noopener noreferrer"
+                id="header-mobile-channel"
+                aria-label="Join WhatsApp Channel"
+                title="Join WhatsApp Channel"
+                className="w-[22px] h-[22px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#25D366] hover:border-[#25D366]/40 transition-all flex items-center justify-center shrink-0"
+              >
+                <Radio className="w-3 h-3" />
+              </a>
+              {/* WhatsApp DM Button */}
+              <a
+                href={STUDIO_LINKS.WHATSAPP_DM}
+                target="_blank"
+                rel="noopener noreferrer"
+                id="header-mobile-wa-quick"
+                aria-label="WhatsApp Studio DM"
+                title="Chat on WhatsApp"
+                className="w-[22px] h-[22px] rounded-full bg-[#D4AF37] text-black hover:bg-white transition-colors font-bold text-xs shadow-md shrink-0 flex items-center justify-center"
+              >
+                <MessageCircle className="w-3 h-3 fill-current" />
+              </a>
+              {/* Navigation Menu Toggle */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                id="mobile-menu-toggle-btn"
+                aria-label="Toggle navigation menu"
+                className="h-[22px] px-1.5 rounded-md bg-neutral-900 border border-white/10 text-neutral-200 hover:text-white focus:outline-none flex items-center justify-center shrink-0"
+              >
+                {mobileMenuOpen ? <X className="w-3.5 h-3.5" /> : <Menu className="w-3.5 h-3.5" />}
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ export const FreeMixingChallenge: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="free-mixing" className="relative py-24 bg-[#0A0A0A] overflow-hidden border-t border-white/5">
+    <section id="free-mixing" className="relative py-24 bg-[#0A0A0A] overflow-hidden border-t border-white/5 min-h-[780px] flex items-center">
       {/* Background Neon Halo */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[400px] bg-gradient-to-r from-[#7C3AED]/20 via-[#D4AF37]/20 to-[#EC4899]/20 blur-[130px] pointer-events-none rounded-full" />
 
