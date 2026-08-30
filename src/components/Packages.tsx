@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PRICING_DATA, STUDIO_LINKS } from '../constants/links';
 import { MessageCircle, Check, Sparkles, Disc, Music, Radio, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { CardAudioPlayer } from './CardAudioPlayer';
 
 export const Packages: React.FC = () => {
   const { t } = useLanguage();
+  const [activeAudioId, setActiveAudioId] = useState<string | null>(null);
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -147,10 +149,21 @@ export const Packages: React.FC = () => {
                         </div>
 
                         {/* Description */}
-                        <div className="flex items-start gap-2 text-sm text-neutral-300 mb-6 leading-relaxed">
+                        <div className="flex items-start gap-2 text-sm text-neutral-300 mb-4 leading-relaxed">
                           <Check className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
                           <span>{localized.desc}</span>
                         </div>
+
+                        {/* Vocal Sample Player Before & After */}
+                        <CardAudioPlayer
+                          cardId={pkg.id}
+                          activePlayerId={activeAudioId}
+                          onPlayStateChange={setActiveAudioId}
+                          rawAudioSrc="/audio/raw_vocal.mp3"
+                          mixedAudioSrc="/audio/mixed_vocal.mp3"
+                          rawDriveUrl={STUDIO_LINKS.RAW_VOCAL_GDRIVE}
+                          mixedDriveUrl={STUDIO_LINKS.MIXED_VOCAL_GDRIVE}
+                        />
                       </div>
 
                       {/* Card Bottom WhatsApp CTA */}

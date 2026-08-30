@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { STUDIO_LINKS } from '../constants/links';
 import {
   Menu,
@@ -10,7 +10,6 @@ import {
   Youtube,
   Radio,
   Languages,
-  ChevronDown,
   Check
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -24,19 +23,7 @@ export const Header: React.FC<HeaderProps> = () => {
   const { language, setLanguage, languages, currentLangMeta, t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [activeNav, setActiveNav] = useState('home');
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setLangDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,9 +31,8 @@ export const Header: React.FC<HeaderProps> = () => {
 
       const sections = [
         'home',
-        'packages',
         'free-mixing',
-        'before-after',
+        'packages',
         'recording-guide',
         'policies',
         'contact'
@@ -72,9 +58,8 @@ export const Header: React.FC<HeaderProps> = () => {
 
   const navItems = [
     { id: 'home', label: t.nav.home },
-    { id: 'packages', label: t.nav.packages },
     { id: 'free-mixing', label: t.nav.freeMixing },
-    { id: 'before-after', label: t.nav.beforeAfter },
+    { id: 'packages', label: t.nav.packages },
     { id: 'recording-guide', label: t.nav.guide },
     { id: 'policies', label: t.nav.policies },
     { id: 'contact', label: t.nav.contact },
@@ -130,16 +115,33 @@ export const Header: React.FC<HeaderProps> = () => {
           <a
             href="#home"
             id="brand-logo"
-            className="flex flex-col group focus:outline-none"
+            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none"
           >
-            <div className="flex items-center gap-2">
-              <span className="font-english font-bold text-lg sm:text-xl tracking-tighter text-[#D4AF37] transition-all group-hover:text-white">
-                ATAL PRODUCTION HOUSE
+            {/* Premium Gold & Purple Synced Logo Avatar */}
+            <div className="relative w-[30px] h-[30px] sm:w-10 sm:h-10 rounded-full p-[1.5px] sm:p-[2px] bg-gradient-to-tr from-[#D4AF37] via-[#F3E5AB] to-[#7C3AED] shadow-lg shadow-[#D4AF37]/20 group-hover:shadow-[#D4AF37]/40 group-hover:scale-105 transition-all duration-300 shrink-0">
+              <div className="w-full h-full rounded-full overflow-hidden bg-black flex items-center justify-center">
+                <img
+                  src="/logo.png"
+                  alt="Atal Production House Logo"
+                  className="w-[30px] h-[30px] sm:w-full sm:h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+              </div>
+              <div className="absolute -inset-0.5 rounded-full bg-[#D4AF37]/20 blur-sm -z-10 group-hover:bg-[#D4AF37]/40 transition-colors" />
+            </div>
+
+            <div className="flex flex-col w-[210px]">
+              <div className="flex items-center gap-1.5">
+                <span className="w-[210px] font-english font-extrabold text-base sm:text-lg tracking-tight text-white group-hover:text-[#D4AF37] transition-colors">
+                  ATAL <span className="text-[#D4AF37]">PRODUCTION</span> HOUSE
+                </span>
+              </div>
+              <span className="w-[200px] text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-english font-medium">
+                {t.footer.tagline}
               </span>
             </div>
-            <span className="text-[10px] uppercase tracking-[0.2em] opacity-60 text-white font-english">
-              {t.footer.tagline}
-            </span>
           </a>
 
           {/* Desktop Navigation */}
@@ -160,49 +162,28 @@ export const Header: React.FC<HeaderProps> = () => {
             ))}
           </nav>
 
-          {/* Desktop Right Social Links, Multi-Language Selector & WhatsApp CTA */}
+          {/* Desktop Right Social Links, Language Selector (Bengali & English) & WhatsApp CTA */}
           <div className="hidden lg:flex items-center gap-2.5">
-            {/* Multi-Language Selector Dropdown */}
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                id="header-lang-toggle"
-                aria-label="Select Language"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-[#D4AF37]/50 text-white/90 hover:text-white transition-all text-xs font-semibold"
-              >
-                <Languages className="w-3.5 h-3.5 text-[#D4AF37]" />
-                <span className="text-sm leading-none mr-0.5">{currentLangMeta.flag}</span>
-                <span className="text-[#D4AF37] font-bold">{currentLangMeta.nativeName}</span>
-                <ChevronDown className={`w-3 h-3 text-white/50 transition-transform ${langDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {langDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-44 rounded-2xl bg-[#141419] border border-white/15 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="text-[10px] uppercase font-bold text-neutral-400 px-3 py-1.5 border-b border-white/5 mb-1">
-                    {t.nav.langLabel}
-                  </div>
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setLanguage(lang.code as SupportedLanguage);
-                        setLangDropdownOpen(false);
-                      }}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all ${
-                        language === lang.code
-                          ? 'bg-[#D4AF37]/15 text-[#D4AF37] font-bold'
-                          : 'text-neutral-300 hover:text-white hover:bg-white/5'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-base">{lang.flag}</span>
-                        <span>{lang.nativeName}</span>
-                      </div>
-                      {language === lang.code && <Check className="w-3.5 h-3.5 text-[#D4AF37]" />}
-                    </button>
-                  ))}
-                </div>
-              )}
+            {/* Direct 1-Click Bengali / English Switcher */}
+            <div className="flex items-center p-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold shadow-inner">
+              {languages.map((lang) => {
+                const isActive = language === lang.code;
+                return (
+                  <button
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code as SupportedLanguage)}
+                    id={`header-lang-${lang.code}`}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-[#D4AF37] text-black font-bold shadow-md shadow-[#D4AF37]/25'
+                        : 'text-neutral-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <span className="text-xs">{lang.flag}</span>
+                    <span>{lang.nativeName}</span>
+                  </button>
+                );
+              })}
             </div>
 
             {/* Social Icons Strip */}
@@ -240,7 +221,7 @@ export const Header: React.FC<HeaderProps> = () => {
           </div>
 
           {/* Mobile Menu & Social Button */}
-          <div className="flex lg:hidden items-center gap-1.5">
+          <div className="flex lg:hidden items-center gap-1 sm:gap-1.5 shrink-0">
             {/* Quick Translation Toggle on Mobile */}
             <button
               onClick={() => {
@@ -250,47 +231,78 @@ export const Header: React.FC<HeaderProps> = () => {
               }}
               id="header-mobile-lang-toggle"
               aria-label="Switch Language"
-              className="p-1.5 px-2.5 rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#D4AF37] flex items-center gap-1"
+              className="w-[35px] h-[35px] p-0.5 rounded-lg bg-white/5 border border-white/10 hover:border-[#D4AF37]/50 text-white/80 hover:text-[#D4AF37] flex flex-col items-center justify-center cursor-pointer transition-colors shadow-sm shrink-0"
             >
-              <span className="text-xs">{currentLangMeta.flag}</span>
-              <span className="text-[11px] font-bold text-[#D4AF37]">
+              <span className="text-[11px] flex items-center justify-center leading-none shrink-0">{currentLangMeta.flag}</span>
+              <span className="w-[25px] text-[8px] font-bold text-[#D4AF37] leading-none tracking-tighter truncate text-center">
                 {currentLangMeta.nativeName}
               </span>
             </button>
-            {/* Quick Instagram & YouTube on Mobile Header */}
+            {/* Quick Instagram on Mobile Header */}
             <a
               href={STUDIO_LINKS.INSTAGRAM}
               target="_blank"
               rel="noopener noreferrer"
+              id="header-mobile-instagram"
               aria-label="Instagram"
-              className="p-2 rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#E1306C]"
+              title="Follow on Instagram"
+              className="w-[20px] h-[20px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#E1306C] hover:border-[#E1306C]/40 transition-all flex items-center justify-center shrink-0"
             >
-              <Instagram className="w-3.5 h-3.5" />
+              <Instagram className="w-2.5 h-2.5" />
             </a>
+            {/* Facebook on Mobile Header */}
+            <a
+              href={STUDIO_LINKS.FACEBOOK}
+              target="_blank"
+              rel="noopener noreferrer"
+              id="header-mobile-facebook"
+              aria-label="Facebook"
+              title="Follow on Facebook"
+              className="w-[20px] h-[20px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#1877F2] hover:border-[#1877F2]/40 transition-all flex items-center justify-center shrink-0"
+            >
+              <Facebook className="w-2.5 h-2.5" />
+            </a>
+            {/* YouTube on Mobile Header */}
             <a
               href={STUDIO_LINKS.YOUTUBE_CHANNEL}
               target="_blank"
               rel="noopener noreferrer"
+              id="header-mobile-youtube"
               aria-label="YouTube"
-              className="p-2 rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#FF0000]"
+              title="Subscribe on YouTube"
+              className="w-[20px] h-[20px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#FF0000] hover:border-[#FF0000]/40 transition-all flex items-center justify-center shrink-0"
             >
-              <Youtube className="w-3.5 h-3.5" />
+              <Youtube className="w-2.5 h-2.5" />
             </a>
+            {/* WhatsApp Channel on Mobile Header */}
+            <a
+              href={STUDIO_LINKS.WHATSAPP_CHANNEL}
+              target="_blank"
+              rel="noopener noreferrer"
+              id="header-mobile-channel"
+              aria-label="Join WhatsApp Channel"
+              title="Join WhatsApp Channel"
+              className="w-[20px] h-[20px] rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-[#25D366] hover:border-[#25D366]/40 transition-all flex items-center justify-center shrink-0"
+            >
+              <Radio className="w-2.5 h-2.5" />
+            </a>
+            {/* WhatsApp DM Button on Mobile Header */}
             <a
               href={STUDIO_LINKS.WHATSAPP_DM}
               target="_blank"
               rel="noopener noreferrer"
               id="header-mobile-wa-quick"
               aria-label="WhatsApp Studio DM"
-              className="p-2 rounded-full bg-[#D4AF37] text-black font-bold text-xs shadow-md"
+              title="Chat on WhatsApp"
+              className="w-[20px] h-[20px] rounded-full bg-[#D4AF37] text-black hover:bg-white transition-colors font-bold text-xs shadow-md shrink-0 flex items-center justify-center"
             >
-              <MessageCircle className="w-4 h-4 fill-current" />
+              <MessageCircle className="w-2.5 h-2.5 fill-current" />
             </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               id="mobile-menu-toggle-btn"
               aria-label="Toggle navigation menu"
-              className="p-2 rounded-lg bg-neutral-900 border border-white/10 text-neutral-200 hover:text-white focus:outline-none ml-1"
+              className="p-1.5 sm:p-2 rounded-lg bg-neutral-900 border border-white/10 text-neutral-200 hover:text-white focus:outline-none ml-0.5 shrink-0"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>

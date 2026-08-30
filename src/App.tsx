@@ -1,9 +1,8 @@
 import React from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { Packages } from './components/Packages';
 import { FreeMixingChallenge } from './components/FreeMixingChallenge';
-import { BeforeAfter } from './components/BeforeAfter';
+import { Packages } from './components/Packages';
 import { RecordingGuide } from './components/RecordingGuide';
 import { StudioPolicies } from './components/StudioPolicies';
 import { FinalCTA } from './components/FinalCTA';
@@ -33,19 +32,16 @@ export default function App() {
           {/* Primary Hero Section */}
           <Hero />
 
-          {/* 01 — Package & Rate */}
-          <Packages />
-
-          {/* 02 — Free Mixing Challenge */}
+          {/* 01 — Free Mixing */}
           <FreeMixingChallenge />
 
-          {/* 03 — Before vs After Audio Transformation */}
-          <BeforeAfter />
+          {/* 02 — Paid Mixing Packages */}
+          <Packages />
 
-          {/* 04 — Home Recording Guide Video */}
+          {/* 03 — Home Recording Guide Video */}
           <RecordingGuide />
 
-          {/* 05 — Studio Guidelines & Policies */}
+          {/* 04 — Studio Guidelines & Policies */}
           <StudioPolicies />
 
           {/* Cinematic Final Closing CTA */}

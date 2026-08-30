@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Sliders, Sparkles, AlertCircle } from 'lucide-react';
 import { STUDIO_LINKS } from '../constants/links';
 import { useLanguage } from '../context/LanguageContext';
@@ -7,12 +7,66 @@ export const BeforeAfter: React.FC = () => {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'AFTER' | 'BEFORE'>('AFTER');
   const [sliderPosition, setSliderPosition] = useState<number>(50);
-  const [isSimulatedPlaying, setIsSimulatedPlaying] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(12);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Toggle simulated playback
+  const rawAudioSrc = '/audio/ei-sundor.wav';
+  const mixedAudioSrc = '/audio/MIX.mp3.mpeg';
+  const currentAudioSrc = activeTab === 'AFTER' ? mixedAudioSrc : rawAudioSrc;
+
+  // Toggle playback
   const togglePlay = () => {
-    setIsSimulatedPlaying(!isSimulatedPlaying);
+    if (isPlaying) {
+      if (audioRef.current) audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      if (audioRef.current) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(() => {
+          setIsPlaying(true);
+        });
+      }
+    }
+  };
+
+  const handleTabSwitch = (mode: 'BEFORE' | 'AFTER') => {
+    if (mode === activeTab) return;
+    const wasPlaying = isPlaying;
+    if (audioRef.current) audioRef.current.pause();
+    setActiveTab(mode);
+    if (wasPlaying) {
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.currentTime = currentTime;
+          audioRef.current.play().catch(() => {});
+          setIsPlaying(true);
+        }
+      }, 50);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+      if (audioRef.current.duration && !isNaN(audioRef.current.duration)) {
+        setDuration(audioRef.current.duration);
+      }
+    }
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setCurrentTime(0);
+  };
+
+  const formatTime = (timeInSec: number) => {
+    const mins = Math.floor(timeInSec / 60);
+    const secs = Math.floor(timeInSec % 60);
+    return `0${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
   const handleSliderMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
@@ -80,12 +134,22 @@ export const BeforeAfter: React.FC = () => {
         {/* Audio Comparison Studio Console Unit */}
         <div className="max-w-4xl mx-auto rounded-3xl bg-white/5 p-6 sm:p-10 border border-white/10 shadow-2xl relative">
           
+          {/* Hidden HTML5 Audio Element */}
+          <audio
+            ref={audioRef}
+            src={currentAudioSrc}
+            onTimeUpdate={handleTimeUpdate}
+            onEnded={handleEnded}
+            onLoadedMetadata={handleTimeUpdate}
+            preload="metadata"
+          />
+
           {/* Top Console Bar */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
             {/* Direct Switch Buttons */}
             <div className="flex items-center gap-2 p-1.5 rounded-full bg-black/60 border border-white/10">
               <button
-                onClick={() => setActiveTab('BEFORE')}
+                onClick={() => handleTabSwitch('BEFORE')}
                 className={`px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
                   activeTab === 'BEFORE'
                     ? 'bg-neutral-800 text-white shadow-md'
@@ -95,7 +159,7 @@ export const BeforeAfter: React.FC = () => {
                 {beforeLabel}
               </button>
               <button
-                onClick={() => setActiveTab('AFTER')}
+                onClick={() => handleTabSwitch('AFTER')}
                 className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all ${
                   activeTab === 'AFTER'
                     ? 'bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20'
@@ -106,10 +170,10 @@ export const BeforeAfter: React.FC = () => {
               </button>
             </div>
 
-            {/* Placeholder Indicator Label */}
+            {/* Indicator Label */}
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-neutral-300 text-xs">
               <AlertCircle className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
-              <span>{interactiveNote}</span>
+              <span>{activeTab === 'AFTER' ? 'MIX.mp3.mpeg (Studio Master)' : 'ei sundor.wav (Raw Vocal)'}</span>
             </div>
           </div>
 
@@ -198,7 +262,7 @@ export const BeforeAfter: React.FC = () => {
                 id="before-after-play-btn"
                 className="w-11 h-11 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white flex items-center justify-center shadow-lg shadow-[#7C3AED]/25 transition-transform hover:scale-105 active:scale-95 shrink-0"
               >
-                {isSimulatedPlaying ? (
+                {isPlaying ? (
                   <Pause className="w-5 h-5 fill-white" />
                 ) : (
                   <Play className="w-5 h-5 fill-white ml-0.5" />
@@ -211,11 +275,11 @@ export const BeforeAfter: React.FC = () => {
                     {activeTab === 'AFTER' ? afterLabel : beforeLabel}
                   </span>
                   <span className="text-[10px] font-mono text-[#D4AF37]">
-                    00:{isSimulatedPlaying ? '18' : '00'} / 01:24
+                    {formatTime(currentTime)} / {formatTime(duration)}
                   </span>
                 </div>
                 <span className="text-[11px] text-neutral-400">
-                  {sampleDesc}
+                  {activeTab === 'AFTER' ? 'Playing Studio Mixed (MIX.mp3.mpeg)' : 'Playing Raw Vocal (ei sundor.wav)'}
                 </span>
               </div>
             </div>

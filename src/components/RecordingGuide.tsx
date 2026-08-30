@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { STUDIO_LINKS } from '../constants/links';
-import { Youtube, Smartphone, ArrowRight, Play, CheckCircle2 } from 'lucide-react';
+import { Youtube, Smartphone, ArrowRight, Play, CheckCircle2, RotateCcw } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export const RecordingGuide: React.FC = () => {
   const { t } = useLanguage();
+  const [isPlayingVideo, setIsPlayingVideo] = useState<boolean>(false);
+
+  const YOUTUBE_VIDEO_ID = 'LUUiAE6qHNw';
+  const YOUTUBE_EMBED_URL = `https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
 
   const tips = [
     {
@@ -45,50 +49,90 @@ export const RecordingGuide: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left: Premium Video Presentation Card */}
+          {/* Left: Premium Video Presentation Card with Direct In-Page Playback */}
           <div className="lg:col-span-7">
-            <a
-              href={STUDIO_LINKS.RECORDING_VIDEO}
-              target="_blank"
-              rel="noopener noreferrer"
+            <div
               id="guide-video-card"
-              className="group block relative rounded-3xl overflow-hidden bg-white/5 border border-white/15 hover:border-white/25 shadow-2xl transition-all duration-300 hover:-translate-y-1"
+              className="group relative rounded-3xl overflow-hidden bg-white/5 border border-white/15 hover:border-white/25 shadow-2xl transition-all duration-300"
             >
-              {/* Studio Thumbnail Graphic Background */}
-              <div className="relative aspect-video w-full bg-gradient-to-tr from-[#160E18] via-[#241320] to-[#0E0E12] flex items-center justify-center overflow-hidden">
-                
-                {/* Audio waves visual pattern */}
-                <div className="absolute inset-0 opacity-20 flex items-center justify-center gap-1">
-                  {[30, 60, 45, 80, 95, 60, 40, 85, 100, 75, 50, 65, 80, 40, 30].map((h, i) => (
-                    <div key={i} className="w-2 bg-[#E11D48] rounded-full" style={{ height: `${h}%` }} />
-                  ))}
-                </div>
+              {/* Video Player Container / Thumbnail */}
+              <div className="relative aspect-video w-full bg-black flex items-center justify-center overflow-hidden">
+                {isPlayingVideo ? (
+                  <iframe
+                    src={YOUTUBE_EMBED_URL}
+                    title="Mobile Vocal Recording Guide - Mix with AD"
+                    className="w-full h-full border-0 absolute inset-0 z-20"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setIsPlayingVideo(true)}
+                    className="w-full h-full relative flex items-center justify-center text-left cursor-pointer group/thumb focus:outline-none"
+                    aria-label="Play recording tutorial video"
+                  >
+                    {/* YouTube High-Res Thumbnail Image Background */}
+                    <img
+                      src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`}
+                      alt="Mobile Recording Guide Video Thumbnail"
+                      className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover/thumb:opacity-95 group-hover/thumb:scale-105 transition-all duration-500"
+                      onError={(e) => {
+                        // Fallback to hqdefault if maxres is unavailable
+                        (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`;
+                      }}
+                    />
 
-                {/* Big Center Play Button */}
-                <div className="relative z-10 w-16 h-16 rounded-full bg-[#E11D48] group-hover:bg-[#FF0000] text-white flex items-center justify-center shadow-lg shadow-[#E11D48]/40 group-hover:scale-110 transition-transform">
-                  <Play className="w-7 h-7 fill-white ml-1" />
-                </div>
+                    {/* Dark gradient overlay for contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/30" />
 
-                {/* Video Badges */}
-                <div className="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-white text-xs font-semibold flex items-center gap-1.5">
-                  <Youtube className="w-4 h-4 text-[#FF0000]" />
-                  <span>{t.recordingGuide.videoTag}</span>
-                </div>
+                    {/* Big Center Animated Play Button */}
+                    <div className="relative z-10 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E11D48] group-hover/thumb:bg-[#FF0000] text-white flex items-center justify-center shadow-2xl shadow-[#E11D48]/50 group-hover/thumb:scale-110 transition-all duration-300">
+                      <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white ml-1" />
+                    </div>
 
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white bg-black/60 backdrop-blur-md p-3 rounded-2xl border border-white/10">
-                  <span className="font-semibold">{t.recordingGuide.videoTitle}</span>
-                  <span className="font-mono text-[#D4AF37]">{t.recordingGuide.watchFree}</span>
-                </div>
+                    {/* Top YouTube Badge */}
+                    <div className="absolute top-4 left-4 z-10 px-3.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-white text-xs font-semibold flex items-center gap-1.5 shadow-lg">
+                      <Youtube className="w-4 h-4 text-[#FF0000]" />
+                      <span>{t.recordingGuide.videoTag}</span>
+                    </div>
+
+                    {/* Bottom Info Bar Overlay */}
+                    <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between text-xs text-white bg-black/75 backdrop-blur-md p-3 rounded-2xl border border-white/10 shadow-lg">
+                      <span className="font-semibold truncate pr-2">{t.recordingGuide.videoTitle}</span>
+                      <span className="font-mono text-[#D4AF37] shrink-0">{t.recordingGuide.watchFree}</span>
+                    </div>
+                  </button>
+                )}
               </div>
 
               {/* Card Footer Bar */}
               <div className="p-4 bg-white/5 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs text-neutral-300">{t.recordingGuide.watchOnYoutube}</span>
-                <span className="font-bold text-xs text-[#E11D48] group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                  {t.recordingGuide.watchBtn}
+                <span className="text-xs text-neutral-300">
+                  {isPlayingVideo ? 'Playing directly inside page' : t.recordingGuide.watchOnYoutube}
                 </span>
+                
+                {isPlayingVideo ? (
+                  <button
+                    type="button"
+                    onClick={() => setIsPlayingVideo(false)}
+                    className="font-bold text-xs text-neutral-400 hover:text-white flex items-center gap-1 transition-colors"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Reset View</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setIsPlayingVideo(true)}
+                    className="font-bold text-xs text-[#E11D48] hover:text-[#FF0000] flex items-center gap-1 transition-colors cursor-pointer"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <span>{t.recordingGuide.watchBtn}</span>
+                  </button>
+                )}
               </div>
-            </a>
+            </div>
           </div>
 
           {/* Right: Quick Action Points & CTAs */}
@@ -118,17 +162,21 @@ export const RecordingGuide: React.FC = () => {
 
             {/* CTAs */}
             <div className="space-y-3 pt-2">
-              {/* Primary CTA */}
-              <a
-                href={STUDIO_LINKS.RECORDING_VIDEO}
-                target="_blank"
-                rel="noopener noreferrer"
+              {/* Primary Direct Play CTA */}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsPlayingVideo(true);
+                  // Scroll smoothly to the video card if needed
+                  const el = document.getElementById('guide-video-card');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
                 id="guide-primary-video-cta"
-                className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-full bg-[#E11D48] hover:bg-[#FF0000] text-white font-bold text-base shadow-lg shadow-[#E11D48]/30 transition-all hover:scale-105"
+                className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-full bg-[#E11D48] hover:bg-[#FF0000] text-white font-bold text-base shadow-lg shadow-[#E11D48]/30 transition-all hover:scale-105 cursor-pointer"
               >
                 <Youtube className="w-5 h-5" />
-                <span>{t.recordingGuide.watchBtn}</span>
-              </a>
+                <span>{isPlayingVideo ? 'Playing Tutorial Video' : t.recordingGuide.watchBtn}</span>
+              </button>
 
               {/* Secondary CTA */}
               <a

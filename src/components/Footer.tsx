@@ -13,13 +13,20 @@ export const Footer: React.FC = () => {
           
           {/* Logo and Studio Identity */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <a href="#home" className="flex items-center gap-2.5 mb-2 group">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#D4AF37] to-[#7C3AED] p-[1px] flex items-center justify-center">
-                <div className="w-full h-full bg-[#0E0E10] rounded-[7px] flex items-center justify-center">
-                  <Volume2 className="w-4 h-4 text-[#D4AF37]" />
+            <a href="#home" className="flex items-center gap-3 mb-2 group">
+              <div className="relative w-9 h-9 rounded-full p-[2px] bg-gradient-to-tr from-[#D4AF37] via-[#F3E5AB] to-[#7C3AED] shadow-md shadow-[#D4AF37]/20 group-hover:scale-105 transition-all duration-300">
+                <div className="w-full h-full rounded-full overflow-hidden bg-black flex items-center justify-center">
+                  <img
+                    src="/logo.png"
+                    alt="Atal Production House Logo"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
                 </div>
               </div>
-              <span className="font-english font-bold text-lg tracking-wider text-white">
+              <span className="font-english font-extrabold text-lg tracking-tight text-white group-hover:text-[#D4AF37] transition-colors">
                 ATAL <span className="text-[#D4AF37]">PRODUCTION</span> HOUSE
               </span>
             </a>

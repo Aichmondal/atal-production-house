@@ -11,9 +11,6 @@ export interface LanguageMeta {
 export const LANGUAGES: LanguageMeta[] = [
   { code: 'bn', name: 'Bengali', nativeName: 'বাংলা', flag: '🇧🇩', dir: 'ltr' },
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇬🇧', dir: 'ltr' },
-  { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी', flag: '🇮🇳', dir: 'ltr' },
-  { code: 'ar', name: 'Arabic', nativeName: 'العربية', flag: '🇸🇦', dir: 'rtl' },
-  { code: 'ur', name: 'Urdu', nativeName: 'اردو', flag: '🇵🇰', dir: 'rtl' },
 ];
 
 export const TRANSLATIONS: Record<SupportedLanguage, any> = {
@@ -35,7 +32,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       switchLang: 'ভাষা / Language',
     },
     packages: {
-      tag: '01 — PACKAGE & RATE',
+      tag: 'PACKAGE & RATE',
       title: 'প্যাকেজ ও রেট তালিকা',
       subtitle: 'স্বচ্ছ মূল্য ও সর্বোচ্চ স্টুডিও কোয়ালিটি। আপনার প্রয়োজনীয় প্যাকেজটি সিলেক্ট করুন।',
       all: 'ALL',
@@ -81,7 +78,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       },
     },
     freeMixing: {
-      tag: '02 — SPECIAL COMMUNITY OFFER',
+      tag: 'SPECIAL COMMUNITY OFFER',
       title: 'ফ্রিতেও গান মিক্সিং করাতে পারবেন!',
       subTitle: 'Free Mixing Challenge',
       desc: 'মাঝে মাঝে আমাদের followers-দের জন্য Free Mixing Challenge আয়োজন করা হয়।',
@@ -95,7 +92,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       freeMixingSub: 'চ্যালেঞ্জ উইনারের জন্য সম্পূর্ণ ফ্রি',
     },
     beforeAfter: {
-      tag: '03 — AUDIO TRANSFORMATION',
+      tag: 'AUDIO TRANSFORMATION',
       title: 'Before vs After',
       subtitle: 'একই ভয়েস। আরও পরিষ্কার, শক্তিশালী ও প্রফেশনাল সাউন্ড।',
       beforeBtn: 'BEFORE (Raw Vocal)',
@@ -118,7 +115,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       mixedList3: '• রেডিও ও স্ট্রিমিং স্ট্যান্ডার্ড ক্রিস্টাল ক্লিয়ার সাউন্ড',
     },
     recordingGuide: {
-      tag: '04 — HOME RECORDING GUIDE',
+      tag: 'HOME RECORDING GUIDE',
       title: 'প্রফেশনাল মাইক নেই? সমস্যা নেই।',
       subtitle: 'মোবাইল দিয়েই কীভাবে পরিষ্কার Vocal Record করবেন, শিখুন।',
       videoTag: 'Tutorial',
@@ -135,7 +132,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       tip3Desc: 'দেয়ালের ইকো কমাতে কাপড়ের আলমারির সামনে বা নরম পর্দার কাছে দাঁড়িয়ে রেকর্ড করুন।',
     },
     policies: {
-      tag: '05 — STUDIO GUIDELINES & POLICIES',
+      tag: 'STUDIO GUIDELINES & POLICIES',
       title: 'স্টুডিও গাইডলাইন ও নিয়মাবলী',
       subtitle: 'মসৃণ ও প্রফেশনাল কাজের অভিজ্ঞতার জন্য নিচের শর্তগুলো জেনে নিন।',
       bottomNotice: 'আরও যেকোনো কাস্টম প্রয়োজনীয়তা বা প্রশ্নের জন্য',
@@ -214,7 +211,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       switchLang: 'Language / ভাষা',
     },
     packages: {
-      tag: '01 — PACKAGE & RATE',
+      tag: 'PACKAGE & RATE',
       title: 'Packages & Studio Rates',
       subtitle: 'Transparent pricing & highest studio quality. Select your required package.',
       all: 'ALL',
@@ -260,7 +257,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       },
     },
     freeMixing: {
-      tag: '02 — SPECIAL COMMUNITY OFFER',
+      tag: 'SPECIAL COMMUNITY OFFER',
       title: 'Get Your Song Mixed for Free!',
       subTitle: 'Free Mixing Challenge',
       desc: 'We occasionally organize Free Mixing Challenges for our dedicated followers.',
@@ -274,7 +271,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       freeMixingSub: '100% Free for Challenge Winner',
     },
     beforeAfter: {
-      tag: '03 — AUDIO TRANSFORMATION',
+      tag: 'AUDIO TRANSFORMATION',
       title: 'Before vs After',
       subtitle: 'Same voice. Cleaner, punchier, and studio-grade sound.',
       beforeBtn: 'BEFORE (Raw Vocal)',
@@ -297,7 +294,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       mixedList3: '• Radio & streaming platform ready crystal clear sound',
     },
     recordingGuide: {
-      tag: '04 — HOME RECORDING GUIDE',
+      tag: 'HOME RECORDING GUIDE',
       title: 'No Studio Mic? No Problem.',
       subtitle: 'Learn how to record crystal clear vocals using just your smartphone.',
       videoTag: 'Tutorial',
@@ -314,7 +311,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       tip3Desc: 'Record facing an open closet with clothes or soft curtains to eliminate wall echo.',
     },
     policies: {
-      tag: '05 — STUDIO GUIDELINES & POLICIES',
+      tag: 'STUDIO GUIDELINES & POLICIES',
       title: 'Studio Guidelines & Policies',
       subtitle: 'Please review our working guidelines for a seamless, professional experience.',
       bottomNotice: 'For any custom requirements or inquiries, feel free to',
@@ -393,7 +390,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       switchLang: 'भाषा / Language',
     },
     packages: {
-      tag: '01 — PACKAGE & RATE',
+      tag: 'PACKAGE & RATE',
       title: 'पैकेज और स्टूडियो दरें',
       subtitle: 'पारदर्शी मूल्य और उच्चतम स्टूडियो गुणवत्ता। अपनी आवश्यकतानुसार पैकेज चुनें।',
       all: 'ALL',
@@ -439,7 +436,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       },
     },
     freeMixing: {
-      tag: '02 — SPECIAL COMMUNITY OFFER',
+      tag: 'SPECIAL COMMUNITY OFFER',
       title: 'मुफ्त में भी गाना मिक्सिंग करवाएं!',
       subTitle: 'Free Mixing Challenge',
       desc: 'समय-समय पर हमारे फॉलोअर्स के लिए Free Mixing Challenge आयोजित किया जाता है।',
@@ -453,7 +450,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       freeMixingSub: 'चैलेंज विजेता के लिए बिल्कुल मुफ्त',
     },
     beforeAfter: {
-      tag: '03 — AUDIO TRANSFORMATION',
+      tag: 'AUDIO TRANSFORMATION',
       title: 'Before vs After',
       subtitle: 'वही आवाज़। अधिक साफ़, शक्तिशाली और स्टूडियो फिनिश।',
       beforeBtn: 'BEFORE (Raw Vocal)',
@@ -476,7 +473,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       mixedList3: '• रेडियो और स्ट्रीमिंग स्टैंडर्ड क्रिस्टल क्लियर साउंड',
     },
     recordingGuide: {
-      tag: '04 — HOME RECORDING GUIDE',
+      tag: 'HOME RECORDING GUIDE',
       title: 'प्रोफेशनल माइक नहीं है? कोई बात नहीं।',
       subtitle: 'मोबाइल से ही साफ़ और बेहतरीन Vocal Record करना सीखें।',
       videoTag: 'Tutorial',
@@ -493,7 +490,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       tip3Desc: 'दीवार की गूंज (echo) कम करने के लिए कपड़ों की अलमारी या पर्दे के सामने खड़े होकर रिकॉर्ड करें।',
     },
     policies: {
-      tag: '05 — STUDIO GUIDELINES & POLICIES',
+      tag: 'STUDIO GUIDELINES & POLICIES',
       title: 'स्टूडियो दिशानिर्देश और नीतियां',
       subtitle: 'सहज और प्रोफेशनल काम के अनुभव के लिए कृपया नीचे दी गई शर्तें पढ़ें।',
       bottomNotice: 'किसी भी कस्टम आवश्यकता या प्रश्न के लिए',
@@ -572,7 +569,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       switchLang: 'اللغة / Language',
     },
     packages: {
-      tag: '01 — PACKAGE & RATE',
+      tag: 'PACKAGE & RATE',
       title: 'باقات وأسعار الاستوديو',
       subtitle: 'أسعار واضحة وأعلى جودة استوديو احترافية. اختر باقتك المناسبة.',
       all: 'الكل',
@@ -618,7 +615,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       },
     },
     freeMixing: {
-      tag: '02 — SPECIAL COMMUNITY OFFER',
+      tag: 'SPECIAL COMMUNITY OFFER',
       title: 'احصل على مكس لأغنيتك مجاناً!',
       subTitle: 'Free Mixing Challenge',
       desc: 'ننظم بانتظام تحدي المكس المجاني لمتابعينا المتميزين.',
@@ -632,7 +629,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       freeMixingSub: 'مجاني تماماً للفائز بالتحدي',
     },
     beforeAfter: {
-      tag: '03 — AUDIO TRANSFORMATION',
+      tag: 'AUDIO TRANSFORMATION',
       title: 'Before vs After',
       subtitle: 'نفس الصوت الخام، يتحول إلى نقاء وقوة استوديو احترافي.',
       beforeBtn: 'قبل (صوت خام)',
@@ -655,7 +652,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       mixedList3: '• نقاء كريستالي معتمد لمنصات البث الإذاعي والرقمي',
     },
     recordingGuide: {
-      tag: '04 — HOME RECORDING GUIDE',
+      tag: 'HOME RECORDING GUIDE',
       title: 'ليس لديك مايك احترافي؟ لا مشكلة.',
       subtitle: 'تعلم كيفية تسجيل فوكال نقي واحترافي باستخدام هاتفك فقط.',
       videoTag: 'درس تعليمي',
@@ -672,7 +669,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       tip3Desc: 'سجل أمام خزانة ملابس مفتوحة أو ستائر سميكة لامتصاص صدى الجدران.',
     },
     policies: {
-      tag: '05 — STUDIO GUIDELINES & POLICIES',
+      tag: 'STUDIO GUIDELINES & POLICIES',
       title: 'إرشادات وشروط الاستوديو',
       subtitle: 'يرجى مراجعة الشروط التالية لتجربة عمل سلسة واحترافية.',
       bottomNotice: 'لأي استفسار أو متطلبات خاصة',
@@ -751,7 +748,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       switchLang: 'زبان / Language',
     },
     packages: {
-      tag: '01 — PACKAGE & RATE',
+      tag: 'PACKAGE & RATE',
       title: 'پیکجز اور اسٹوڈیو ریٹس',
       subtitle: 'شفاف قیمتیں اور اعلیٰ ترین اسٹوڈیو کوالٹی۔ اپنا مطلوبہ پیکج منتخب کریں۔',
       all: 'سب',
@@ -797,7 +794,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       },
     },
     freeMixing: {
-      tag: '02 — SPECIAL COMMUNITY OFFER',
+      tag: 'SPECIAL COMMUNITY OFFER',
       title: 'مفت میں بھی گانا مکس کروائیں!',
       subTitle: 'Free Mixing Challenge',
       desc: 'ہم اپنے فالوورز کے لیے وقتاً فوقتاً فری مکسنگ چیلنج کا انعقاد کرتے ہیں۔',
@@ -811,7 +808,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       freeMixingSub: 'چیلنج جیتنے والے کے لیے بالکل مفت',
     },
     beforeAfter: {
-      tag: '03 — AUDIO TRANSFORMATION',
+      tag: 'AUDIO TRANSFORMATION',
       title: 'Before vs After',
       subtitle: 'وہی آواز۔ زیادہ صاف، طاقتور اور اسٹوڈیو فنش کے ساتھ۔',
       beforeBtn: 'پہلے (خام آواز)',
@@ -834,7 +831,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       mixedList3: '• ریڈیو اور اسٹریمنگ اسٹینڈرڈ کرسٹل کلیئر ساؤنڈ',
     },
     recordingGuide: {
-      tag: '04 — HOME RECORDING GUIDE',
+      tag: 'HOME RECORDING GUIDE',
       title: 'پیشہ ورانہ مائیک نہیں ہے؟ کوئی بات نہیں.',
       subtitle: 'موبائل سے ہی صاف اور واضح آواز ریکارڈ کرنا سیکھیں۔',
       videoTag: 'ٹیوٹوریل',
@@ -851,7 +848,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, any> = {
       tip3Desc: 'کمرے کی گونج کم کرنے کے لیے الماری یا پردوں کے سامنے کھڑے ہو کر ریکارڈ کریں۔',
     },
     policies: {
-      tag: '05 — STUDIO GUIDELINES & POLICIES',
+      tag: 'STUDIO GUIDELINES & POLICIES',
       title: 'اسٹوڈیو گائیڈ لائنز اور پالیسیاں',
       subtitle: 'بہترین اور پروفیشنل کام کے لیے برائے مہربانی درج ذیل شرائط دیکھیں۔',
       bottomNotice: 'کسی بھی کسٹم ضرورت یا سوال کے لیے',

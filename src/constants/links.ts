@@ -4,7 +4,9 @@ export const STUDIO_LINKS = {
   INSTAGRAM: 'https://www.instagram.com/ataldas1997?igsh=d2d5ZTNxYzZmNXM2',
   FACEBOOK: 'https://www.facebook.com/share/1EVrpgHrnD/',
   YOUTUBE_CHANNEL: 'https://www.youtube.com/@MixWithAD',
-  RECORDING_VIDEO: 'https://yt.openinapp.co/7nvt7',
+  RECORDING_VIDEO: 'https://www.youtube.com/watch?v=LUUiAE6qHNw',
+  RAW_VOCAL_GDRIVE: 'https://drive.google.com/file/d/1pLkD5tTzllPAfq5STahaqFuErQ7trl-n/view?usp=sharing',
+  MIXED_VOCAL_GDRIVE: 'https://drive.google.com/file/d/1KwnuXgu5stdYddmqbDR1WVjgC3zOZGYV/view?usp=sharing',
 };
 
 export interface PricingItem {
@@ -26,23 +28,29 @@ export interface PricingCategory {
 
 export const PRICING_DATA: PricingCategory[] = [
   {
-    category: 'ORIGINAL SONG',
-    categoryBn: 'অরিজিনাল গান প্রোডাকশন',
-    subtitle: 'Full original song composition, arrangement & mixing',
+    category: 'REELS SONG',
+    categoryBn: 'রিলস গান প্রোডাকশন',
+    subtitle: '1:00 – 1:30 min (Instagram & YouTube Reels)',
     items: [
       {
-        id: 'orig-manual',
-        name: 'Manual Instruments',
-        price: '₹10,000+',
-        description: 'Live / manual instrument-based production.',
-        badge: 'Premium Studio'
+        id: 'reels-solo',
+        name: 'YouTube Karaoke — Solo',
+        price: '₹700',
+        description: 'Single vocal mix on karaoke track for reels.',
+        badge: 'Budget Friendly'
       },
       {
-        id: 'orig-vst',
-        name: 'VST Instruments',
-        price: '₹6,000',
-        description: 'Digital instrument-based production.',
-        badge: 'Popular Choice'
+        id: 'reels-duet',
+        name: 'YouTube Karaoke — Duet',
+        price: '₹1,600',
+        description: 'Duet vocals mix & balance with karaoke track.',
+      },
+      {
+        id: 'reels-new',
+        name: 'New Music Production',
+        price: '₹1,000',
+        description: 'Fresh custom short arrangement for reels.',
+        badge: 'Trending'
       }
     ]
   },
@@ -68,29 +76,23 @@ export const PRICING_DATA: PricingCategory[] = [
     ]
   },
   {
-    category: 'REELS SONG',
-    categoryBn: 'রিলস গান প্রোডাকশন',
-    subtitle: '1:00 – 1:30 min (Instagram & YouTube Reels)',
+    category: 'ORIGINAL SONG',
+    categoryBn: 'অরিজিনাল গান প্রোডাকশন',
+    subtitle: 'Full original song composition, arrangement & mixing',
     items: [
       {
-        id: 'reels-solo',
-        name: 'YouTube Karaoke — Solo',
-        price: '₹700',
-        description: 'Single vocal mix on karaoke track for reels.',
-        badge: 'Budget Friendly'
+        id: 'orig-manual',
+        name: 'Manual Instruments',
+        price: '₹10,000+',
+        description: 'Live / manual instrument-based production.',
+        badge: 'Premium Studio'
       },
       {
-        id: 'reels-duet',
-        name: 'YouTube Karaoke — Duet',
-        price: '₹1,600',
-        description: 'Duet vocals mix & balance with karaoke track.',
-      },
-      {
-        id: 'reels-new',
-        name: 'New Music Production',
-        price: '₹1,000',
-        description: 'Fresh custom short arrangement for reels.',
-        badge: 'Trending'
+        id: 'orig-vst',
+        name: 'VST Instruments',
+        price: '₹6,000',
+        description: 'Digital instrument-based production.',
+        badge: 'Popular Choice'
       }
     ]
   }
