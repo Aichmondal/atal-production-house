@@ -66,7 +66,7 @@ export const RecordingGuide: React.FC = () => {
   ];
 
   return (
-    <section id="recording-guide" className="relative py-24 bg-[#0A0A0A] border-t border-white/5 overflow-hidden">
+    <section id="recording-guide" className="relative py-10 sm:py-16 md:py-20 bg-[#0A0A0A] border-t border-white/5 overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 -right-20 w-80 h-80 bg-[#E11D48]/10 blur-[130px] pointer-events-none rounded-full" />
       <div className="absolute bottom-10 -left-20 w-80 h-80 bg-[#7C3AED]/10 blur-[130px] pointer-events-none rounded-full" />
@@ -74,26 +74,26 @@ export const RecordingGuide: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.03] border border-white/10 text-xs font-english uppercase tracking-widest text-[#D4AF37] mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1 rounded-full bg-white/[0.03] border border-white/10 text-[11px] sm:text-xs font-english uppercase tracking-widest text-[#D4AF37] mb-2 sm:mb-3">
             <Smartphone className="w-3.5 h-3.5 text-[#D4AF37]" />
             <span>{t.recordingGuide.tag}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-3">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-2 sm:mb-3">
             {t.recordingGuide.title}
           </h2>
-          <p className="text-base sm:text-xl text-neutral-300 font-medium">
+          <p className="text-sm sm:text-xl text-neutral-300 font-medium">
             {t.recordingGuide.subtitle}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
           
           {/* Left: Premium Video Presentation Card with Direct In-Page Playback */}
           <div className="lg:col-span-7">
             <div
               id="guide-video-card"
-              className="group relative rounded-3xl overflow-hidden bg-white/5 border border-white/15 hover:border-white/25 shadow-2xl transition-all duration-300"
+              className="group relative rounded-2xl sm:rounded-3xl overflow-hidden bg-white/5 border border-white/15 hover:border-white/25 shadow-2xl transition-all duration-300"
             >
               {/* Video Player Container / Thumbnail */}
               <div className="relative aspect-video w-full bg-black flex items-center justify-center overflow-hidden">

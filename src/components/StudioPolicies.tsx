@@ -33,19 +33,19 @@ export const StudioPolicies: React.FC = () => {
   };
 
   return (
-    <section id="policies" className="relative py-24 bg-[#0D0D11] border-t border-white/5">
+    <section id="policies" className="relative py-10 sm:py-16 md:py-20 bg-[#0D0D11] border-t border-white/5">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.03] border border-white/10 text-xs font-english uppercase tracking-widest text-[#D4AF37] mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1 rounded-full bg-white/[0.03] border border-white/10 text-[11px] sm:text-xs font-english uppercase tracking-widest text-[#D4AF37] mb-2 sm:mb-3">
             <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
             <span>{t.policies.tag}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-3">
             {t.policies.title}
           </h2>
-          <p className="text-sm sm:text-base text-neutral-300">
+          <p className="text-xs sm:text-base text-neutral-300">
             {t.policies.subtitle}
           </p>
         </div>
