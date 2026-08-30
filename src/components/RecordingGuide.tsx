@@ -1,14 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { STUDIO_LINKS } from '../constants/links';
-import { Youtube, Smartphone, ArrowRight, Play, CheckCircle2, RotateCcw } from 'lucide-react';
+import { Youtube, Smartphone, ArrowRight, Play, CheckCircle2, RotateCcw, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export const RecordingGuide: React.FC = () => {
   const { t } = useLanguage();
   const [isPlayingVideo, setIsPlayingVideo] = useState<boolean>(false);
+  const [currentOrigin, setCurrentOrigin] = useState<string>('');
+  const [hasLoadError, setHasLoadError] = useState<boolean>(false);
 
   const YOUTUBE_VIDEO_ID = 'LUUiAE6qHNw';
-  const YOUTUBE_EMBED_URL = `https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+  const YOUTUBE_WATCH_URL = STUDIO_LINKS.RECORDING_VIDEO || `https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`;
+
+  // Dynamically derive current origin on client side
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location?.origin) {
+      setCurrentOrigin(window.location.origin);
+    }
+  }, []);
+
+  // Build the official YouTube embed URL with dynamic origin & parameters
+  const buildEmbedUrl = (videoId: string, origin: string): string => {
+    if (!videoId) return '';
+    const params = new URLSearchParams({
+      autoplay: '1',
+      rel: '0',
+      modestbranding: '1',
+      playsinline: '1',
+      enablejsapi: '1',
+    });
+
+    if (origin) {
+      params.set('origin', origin);
+      params.set('widget_referrer', origin);
+    }
+
+    return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?${params.toString()}`;
+  };
+
+  const embedUrl = buildEmbedUrl(YOUTUBE_VIDEO_ID, currentOrigin);
+
+  const handleStartPlay = () => {
+    setHasLoadError(false);
+    setIsPlayingVideo(true);
+  };
+
+  const handleResetPlay = () => {
+    setIsPlayingVideo(false);
+    setHasLoadError(false);
+  };
 
   const tips = [
     {
@@ -57,18 +97,40 @@ export const RecordingGuide: React.FC = () => {
             >
               {/* Video Player Container / Thumbnail */}
               <div className="relative aspect-video w-full bg-black flex items-center justify-center overflow-hidden">
-                {isPlayingVideo ? (
+                {isPlayingVideo && YOUTUBE_VIDEO_ID && !hasLoadError ? (
                   <iframe
-                    src={YOUTUBE_EMBED_URL}
+                    src={embedUrl}
                     title="Mobile Vocal Recording Guide - Mix with AD"
                     className="w-full h-full border-0 absolute inset-0 z-20"
+                    referrerPolicy="strict-origin-when-cross-origin"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
+                    onError={() => setHasLoadError(true)}
                   />
+                ) : isPlayingVideo && hasLoadError ? (
+                  /* Fallback when video embed fails or cannot load */
+                  <div className="absolute inset-0 z-20 bg-neutral-950 flex flex-col items-center justify-center p-6 text-center">
+                    <Youtube className="w-12 h-12 text-[#FF0000] mb-3" />
+                    <p className="text-white font-bold text-base mb-1">
+                      {t.recordingGuide.videoTitle || 'Mobile Vocal Recording Guide'}
+                    </p>
+                    <p className="text-xs text-neutral-400 max-w-sm mb-4">
+                      {t.recordingGuide.watchOnYoutube}
+                    </p>
+                    <a
+                      href={YOUTUBE_WATCH_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#E11D48] hover:bg-[#FF0000] text-white text-xs font-bold transition-all shadow-lg hover:scale-105"
+                    >
+                      <span>Watch on YouTube</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 ) : (
                   <button
                     type="button"
-                    onClick={() => setIsPlayingVideo(true)}
+                    onClick={handleStartPlay}
                     className="w-full h-full relative flex items-center justify-center text-left cursor-pointer group/thumb focus:outline-none"
                     aria-label="Play recording tutorial video"
                   >
@@ -76,6 +138,7 @@ export const RecordingGuide: React.FC = () => {
                     <img
                       src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`}
                       alt="Mobile Recording Guide Video Thumbnail"
+                      referrerPolicy="no-referrer"
                       className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover/thumb:opacity-95 group-hover/thumb:scale-105 transition-all duration-500"
                       onError={(e) => {
                         // Fallback to hqdefault if maxres is unavailable
@@ -112,25 +175,40 @@ export const RecordingGuide: React.FC = () => {
                   {isPlayingVideo ? 'Playing directly inside page' : t.recordingGuide.watchOnYoutube}
                 </span>
                 
-                {isPlayingVideo ? (
-                  <button
-                    type="button"
-                    onClick={() => setIsPlayingVideo(false)}
-                    className="font-bold text-xs text-neutral-400 hover:text-white flex items-center gap-1 transition-colors"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                    <span>Reset View</span>
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setIsPlayingVideo(true)}
-                    className="font-bold text-xs text-[#E11D48] hover:text-[#FF0000] flex items-center gap-1 transition-colors cursor-pointer"
-                  >
-                    <Play className="w-3.5 h-3.5 fill-current" />
-                    <span>{t.recordingGuide.watchBtn}</span>
-                  </button>
-                )}
+                <div className="flex items-center gap-3">
+                  {isPlayingVideo && (
+                    <a
+                      href={YOUTUBE_WATCH_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Open on YouTube"
+                      className="font-semibold text-xs text-[#D4AF37] hover:text-white flex items-center gap-1 transition-colors"
+                    >
+                      <span>YouTube</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+
+                  {isPlayingVideo ? (
+                    <button
+                      type="button"
+                      onClick={handleResetPlay}
+                      className="font-bold text-xs text-neutral-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                      <span>Reset View</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleStartPlay}
+                      className="font-bold text-xs text-[#E11D48] hover:text-[#FF0000] flex items-center gap-1 transition-colors cursor-pointer"
+                    >
+                      <Play className="w-3.5 h-3.5 fill-current" />
+                      <span>{t.recordingGuide.watchBtn}</span>
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -166,7 +244,7 @@ export const RecordingGuide: React.FC = () => {
               <button
                 type="button"
                 onClick={() => {
-                  setIsPlayingVideo(true);
+                  handleStartPlay();
                   // Scroll smoothly to the video card if needed
                   const el = document.getElementById('guide-video-card');
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
